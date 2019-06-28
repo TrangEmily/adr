@@ -182,6 +182,7 @@ actually be defined somewhere. There are three locations you can define context:
         action: "store_true"
         default: false
         help: "Store true in the 'foo' context"
+        
 
 2. Context can also be defined in the query itself. This is useful when you want to tweak knobs when
    running standalone queries (e.g with ``adr query``). This method is also nice because it keeps
@@ -250,6 +251,19 @@ different default value. This is possible via the :func:`~adr.context.override` 
 
 This will only modify the default value of the ``branch`` context, leaving the rest as is.
 
+Hidden Context
+~~~~~~~~~~~~~~~~~~~~~~~~~
+Sometimes you have to define hidden context, which is transparent with users. It can be set easily by using hidden argument.
+
+.. code-block:: python
+
+    from adr.context import override
+
+    RUN_CONTEXTS = [
+        override('attribute', hidden=True),
+    ]
+    
+You can set a value for 'attribute' context inside your recipe, then call queries which need 'attribute' context, but users have no idea about this.
 
 Project Structure
 -----------------
